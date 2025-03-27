@@ -13,6 +13,9 @@
         "minimum": "11",
         "verified": "11"
     },
+    "templates": [
+        "templates/rss-scroller.html"
+    ],
     "styles": [
         "styles/rss-scroller.css"
     ],
