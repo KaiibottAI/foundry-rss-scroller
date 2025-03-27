@@ -1,0 +1,20 @@
+{
+    "name": "rss-scroller",
+    "title": "RSS Scroller",
+    "description": "Displays a scrolling RSS-like feed from a journal entry.",
+    "version": "1.0.0",
+    "author": "Kaiibott",
+    "packs": [],
+    "dependencies": [],
+    "scripts": [
+        "scripts/rss-scroller.js"
+    ],
+    "compatibility": {
+        "minimum": "11",
+        "verified": "11"
+    },
+    "styles": [
+        "styles/rss-scroller.css"
+    ],
+    "system": "core"
+}
