@@ -50,10 +50,12 @@
     }
 }
 
-#rss-scroll-content {
+/* omg omg omg, this is what handles the targeting to move the stuff along */
+.app.rss-scroll .window-content {
     display: inline-block;
     white-space: nowrap;
     animation: scrollText 10s linear infinite;
+    /* color: magenta; */
 }
 
 #rss-scroll-content:hover {
