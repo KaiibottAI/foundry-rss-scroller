@@ -29,14 +29,9 @@ async function fetchRSSFeed() {
     }
 
     // Extract the journal text and split it into items (assuming each line is an item)
-    const content = await TextEditor.enrichHTML(journal.content, { async: true });
-    const lines = content.split("\n").filter(line => line.trim() !== "");
-
-    // Convert each line into an "RSS item"
-    const items = lines.map(line => ({
-        title: line,
-        link: "#"  // No actual link, but could be enhanced to support clickable links
-    }));
+    const journalPages = [...journal.pages.values()];
+    const journalText = journalPages.map(pages => pages.text.content).join(" --- ");
+    const items = journalText;
 
     return { items };
 }
