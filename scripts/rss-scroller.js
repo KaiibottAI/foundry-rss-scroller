@@ -1,10 +1,10 @@
 class RSSScroller extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            title: "RSS Scroller",
-            width: 400,
-            height: 100,
-            classes: ["rss-scroller"],
+            title: "RSS Scroller", // this needs to be a setting later
+            width: 400, // this needs to be a setting later
+            height: 100, // this needs to be a setting later
+            classes: ["rss-scroll"],
         });
     }
 
@@ -13,14 +13,14 @@ class RSSScroller extends Application {
     }
 
     async getData() {
-        const feedData = await fetchRSSFeed(); // Ensure this function exists
-        return { items: feedData.items };
+        const feedData = await fetchRSSFeed();
+        return { items: feedData.journalText };
     }
 }
 
 async function fetchRSSFeed() {
-    // Change this to match the name or ID of your journal entry
-    const journalName = "News Feed";
+
+    const journalName = "News Feed"; // this needs to be a setting later
     const journal = game.journal.getName(journalName); // Finds journal by name
 
     if (!journal) {
@@ -28,12 +28,10 @@ async function fetchRSSFeed() {
         return { items: [] };
     }
 
-    // Extract the journal text and split it into items (assuming each line is an item)
-    const journalPages = [...journal.pages.values()];
-    const journalText = journalPages.map(pages => pages.text.content).join(" --- ");
-    const items = journalText;
+    const journalPages = [...journal.pages.values()]; // Get the text inside the journal pages
+    const journalText = journalPages.map(pages => pages.text.content).join(" --- "); // join all the pages together to make one long string for the rss srolling
 
-    return { items };
+    return { journalText };
 }
 
 
