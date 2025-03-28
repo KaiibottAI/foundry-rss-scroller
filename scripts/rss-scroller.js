@@ -1,10 +1,20 @@
 class RSSScroller extends Application {
+
+    constructor(options = {}) {
+        // assign dynamically for things that the gm would want to add
+        options = Object.assign({
+            title: game.settings.get('rss-scroller', 'title') || 'RSS Scroller',
+            width: game.settings.get('rss-scroller', 'width') || 500,
+            height: game.settings.get('rss-scroller', 'height') || 100,
+            fontsize: game.settings.get('rss-scroller', 'fontSize') || 14
+        }, options);
+
+        super(options);
+    }
+
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            title: "RSS Scroller", // this needs to be a setting later
-            width: 800, // this needs to be a setting later
-            height: 100, // this needs to be a setting later
-            classes: ["rss-scroll"],
+            classes: ["rss-scroll"]
         });
     }
 
@@ -16,7 +26,12 @@ class RSSScroller extends Application {
         const feedData = fetchRSSFeed();
         return { items: feedData.journalText };
     }
-}
+
+    activeListeners(html) {
+        super.activeListeners(html);
+        html.find(".rss-scroll-content").css("font-size", `${this.options.fontSize}px`)
+    }
+};
 
 function fetchRSSFeed() {
 
@@ -33,8 +48,73 @@ function fetchRSSFeed() {
     const journalText = journalPages.map(pages => pages.text.content).join(" --- ").replace(/<p>|<\/p>/g, ''); // join all the pages together to make one long string for the rss srolling
 
     return { journalText };
-}
+};
 
+Hooks.once("init", () => {
+    game.settings.register('rss-scroller', 'title', {
+        name: 'Name of RSS Scroller',
+        hint: 'Name of the RSS Window',
+        scope: 'world',
+        config: true,
+        type: String,
+        default: 'RSS Scroller',
+        onChange: value => {
+            console.log(value)
+        },
+        requiresReload: true
+    });
+    game.settings.register('rss-scroller', 'width', {
+        name: 'Width',
+        hint: 'How wide the RSS Feed window should be.',
+        scope: 'world',
+        config: true,
+        type: Number,
+        range: {
+            min: 400,
+            max: 1400,
+            step: 10
+        },
+        default: 800,
+        onChange: value => {
+            console.log(value)
+        },
+        requiresReload: true
+    });
+    game.settings.register('rss-scroller', 'height', {
+        name: 'Height',
+        hint: 'How tall the RSS Feed window should be.',
+        scope: 'world',
+        config: true,
+        type: Number,
+        range: {
+            min: 50,
+            max: 400,
+            step: 10
+        },
+        default: 100,
+        onChange: value => {
+            console.log(value)
+        },
+        requiresReload: true
+    });
+    game.settings.register('rss-scroller', 'fontSize', {
+        name: 'Font Size',
+        hint: 'Size of the RSS Scroller font',
+        scope: 'world',
+        config: true,
+        type: Number,
+        range: {
+            min: 8,
+            max: 72,
+            step: 1
+        },
+        default: 16,
+        onChange: value => {
+            console.log(value)
+        },
+        requiresReload: true
+    });
+});
 
 // Initialize the scroller when Foundry is ready
 Hooks.once("ready", function () {
