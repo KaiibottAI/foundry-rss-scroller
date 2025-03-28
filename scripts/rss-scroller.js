@@ -2,7 +2,7 @@ class RSSScroller extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             title: "RSS Scroller", // this needs to be a setting later
-            width: 400, // this needs to be a setting later
+            width: 800, // this needs to be a setting later
             height: 100, // this needs to be a setting later
             classes: ["rss-scroll"],
         });
@@ -29,7 +29,8 @@ function fetchRSSFeed() {
     }
 
     const journalPages = [...journal.pages.values()]; // Get the text inside the journal pages
-    const journalText = journalPages.map(pages => pages.text.content).join(" --- "); // join all the pages together to make one long string for the rss srolling
+    // const journalText = journalPages.map(pages => pages.text.content).join(" --- ").replace(/<\/?[^>]+(>|$)/g, ''); // join all the pages together to make one long string for the rss srolling
+    const journalText = journalPages.map(pages => pages.text.content).join(" --- ").replace(/<p>|<\/p>/g, ''); // join all the pages together to make one long string for the rss srolling
 
     return { journalText };
 }
