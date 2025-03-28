@@ -12,13 +12,13 @@ class RSSScroller extends Application {
         return "modules/rss-scroller/templates/rss-scroller.html";
     }
 
-    async getData() {
-        const feedData = await fetchRSSFeed();
+    getData() {
+        const feedData = fetchRSSFeed();
         return { items: feedData.journalText };
     }
 }
 
-async function fetchRSSFeed() {
+function fetchRSSFeed() {
 
     const journalName = "News Feed"; // this needs to be a setting later
     const journal = game.journal.getName(journalName); // Finds journal by name
@@ -36,7 +36,7 @@ async function fetchRSSFeed() {
 
 
 // Initialize the scroller when Foundry is ready
-Hooks.once("ready", async function () {
+Hooks.once("ready", function () {
     const rssScroller = new RSSScroller();
     rssScroller.render(true);
 });
