@@ -27,8 +27,10 @@ class RSSScroller extends Application {
         return { items: feedData.journalText };
     }
 
+    // update the fontsize of the rss scroller while you change the value in menu
     activeListeners(html) {
         super.activeListeners(html);
+        const fontSize = game.settings.get('rss-scroller', 'fontSize')
         html.find(".rss-scroll-content").css("font-size", `${this.options.fontSize}px`)
     }
 };
@@ -48,6 +50,13 @@ function fetchRSSFeed() {
     const journalText = journalPages.map(pages => pages.text.content).join(" --- ").replace(/<p>|<\/p>/g, ''); // join all the pages together to make one long string for the rss srolling
 
     return { journalText };
+};
+
+function updateScrollerFontSize(fontSize) {
+    const scroller = document.querySelector(".rss-scroll-content");
+    if (scroller) {
+        scroller.style.fontSize = `${fontSize}px`;
+    }
 };
 
 Hooks.once("init", () => {
@@ -108,11 +117,11 @@ Hooks.once("init", () => {
             max: 72,
             step: 1
         },
-        default: 16,
+        default: 40,
         onChange: value => {
-            console.log(value)
+            updateScrollerFontSize(value)
         },
-        requiresReload: true
+        requiresReload: false
     });
 });
 
