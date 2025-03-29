@@ -6,7 +6,8 @@ class RSSScroller extends Application {
             title: game.settings.get('rss-scroller', 'title') || 'RSS Scroller',
             width: game.settings.get('rss-scroller', 'width') || 500,
             height: game.settings.get('rss-scroller', 'height') || 100,
-            fontsize: game.settings.get('rss-scroller', 'fontSize') || 14
+            fontsize: game.settings.get('rss-scroller', 'fontSize') || 14,
+            rssspeed: game.settings.get('rss-scroller', 'rssSpeed') || 100
         }, options);
 
         super(options);
@@ -56,6 +57,13 @@ function updateScrollerFontSize(fontSize) {
     const scroller = document.querySelector(".rss-scroll-content");
     if (scroller) {
         scroller.style.fontSize = `${fontSize}px`;
+    }
+};
+
+function updateScrollerSpeed(rssSpeed) {
+    const scroller = document.querySelector(".rss-scroll-content");
+    if (scroller) {
+        scroller.style.animation = `scrollText ${rssSpeed}s linear infinite`;
     }
 };
 
@@ -120,6 +128,23 @@ Hooks.once("init", () => {
         default: 40,
         onChange: value => {
             updateScrollerFontSize(value)
+        },
+        requiresReload: false
+    });
+    game.settings.register('rss-scroller', 'rssSpeed', {
+        name: 'RSS Speed',
+        hint: 'The speed of the RSS Scroller text. Higher number = slower speed.',
+        scope: 'world',
+        config: true,
+        type: Number,
+        range: {
+            min: 1,
+            max: 200,
+            step: 1
+        },
+        default: 100,
+        onChange: value => {
+            updateScrollerSpeed(value)
         },
         requiresReload: false
     });
