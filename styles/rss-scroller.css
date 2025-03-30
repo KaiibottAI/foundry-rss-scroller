@@ -10,6 +10,7 @@
 
 /* omg omg omg, this is what handles the targeting to move the stuff along */
 .app.rss-scroll .window-content .rss-scroll-content {
+    /* --font-size: var(); */
     font-family: "Orbitron", sans-serif;
     white-space: nowrap;
     animation: scrollText 150s linear infinite;
