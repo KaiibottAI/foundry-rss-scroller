@@ -1,3 +1,10 @@
+:root {
+    --rss-speed: 150s;
+    --rss-font-size: 24px;
+    --rss-width: 400px;
+    --rss-height: 100px;
+}
+
 @keyframes scrollText {
     0% {
         transform: translateX(2%);
@@ -8,12 +15,11 @@
     }
 }
 
-/* omg omg omg, this is what handles the targeting to move the stuff along */
 .app.rss-scroll .window-content .rss-scroll-content {
-    /* --font-size: var(); */
     font-family: "Orbitron", sans-serif;
     white-space: nowrap;
-    animation: scrollText 150s linear infinite;
+    font-size: var(--rss-font-size);
+    animation: scrollText var(--rss-speed) linear infinite;
     width: fit-content;
 }
 
