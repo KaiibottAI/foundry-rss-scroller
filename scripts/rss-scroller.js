@@ -1,5 +1,5 @@
 let rssScrollerInstance = null; // Store the current instance of an rss feed
-const moduleName = 'rss-scroller'
+const moduleName = 'foundry-rss-scroller'
 
 class RSSScroller extends Application {
 
@@ -23,7 +23,7 @@ class RSSScroller extends Application {
     }
 
     get template() {
-        return "modules/rss-scroller/templates/rss-scroller.html";
+        return "modules/foundry-rss-scroller/templates/rss-scroller.html";
     }
 
     getData() {

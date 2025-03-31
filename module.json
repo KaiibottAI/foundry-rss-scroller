@@ -1,5 +1,5 @@
 {
-    "name": "rss-scroller",
+    "name": "foundry-rss-scroller",
     "title": "RSS Scroller",
     "description": "Displays a scrolling RSS-like feed from a journal entry.",
     "version": "1.0.0",
