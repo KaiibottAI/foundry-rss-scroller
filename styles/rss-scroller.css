@@ -3,6 +3,8 @@
     --rss-font-size: 24px;
     --rss-width: 400px;
     --rss-height: 100px;
+    --rss-background-color: #4a0404;
+    --rss-text-color: #d31919;
 }
 
 @keyframes scrollText {
@@ -19,6 +21,8 @@
     font-family: "Orbitron", sans-serif;
     white-space: nowrap;
     font-size: var(--rss-font-size);
+    color: var(--rss-text-color);
+    background-color: var(--rss-background-color);
     animation: scrollText var(--rss-speed) linear infinite;
     width: fit-content;
 }
