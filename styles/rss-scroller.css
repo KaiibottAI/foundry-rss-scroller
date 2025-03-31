@@ -17,7 +17,7 @@
     }
 }
 
-.app.rss-scroll .window-content .rss-scroll-content {
+.rss-scroll-content {
     font-family: "Orbitron", sans-serif;
     white-space: nowrap;
     font-size: var(--rss-font-size);
@@ -27,6 +27,6 @@
     width: fit-content;
 }
 
-.app.rss-scroll .window-content .rss-scroll-content:hover {
+.rss-scroll-content:hover {
     animation-play-state: paused !important;
 }

@@ -7,10 +7,12 @@ class RSSScroller extends Application {
         // assign dynamically for things that the gm would want to add
         options = Object.assign({
             title: game.settings.get(moduleName, 'title') || 'RSS Scroller',
+            id: moduleName,
             width: game.settings.get(moduleName, 'width'),
             height: game.settings.get(moduleName, 'height'),
             fontsize: game.settings.get(moduleName, 'fontSize'),
-            rssspeed: game.settings.get(moduleName, 'rssSpeed')
+            rssspeed: game.settings.get(moduleName, 'rssSpeed'),
+            template: "modules/foundry-rss-scroller/templates/rss-scroller.html"
         }, options);
 
         super(options);
@@ -22,9 +24,9 @@ class RSSScroller extends Application {
         });
     }
 
-    get template() {
-        return "modules/foundry-rss-scroller/templates/rss-scroller.html";
-    }
+    // get template() {
+    //     return "modules/foundry-rss-scroller/templates/rss-scroller.html";
+    // }
 
     getData() {
         const feedData = fetchRSSFeed();
@@ -39,16 +41,14 @@ class RSSScroller extends Application {
     }
 };
 
-
-
 function fetchRSSFeed() {
 
-    const journalName = "News Feed"; // this needs to be a setting later
+    const journalName = game.settings.get(moduleName, 'journalName'); // this needs to be a setting later
     const journal = game.journal.getName(journalName); // Finds journal by name
 
     if (!journal) {
-        console.warn(`RSS Scroller: Journal entry "${journalName}" not found.`);
-        return { items: [] };
+        ui.notifications.warn(`RSS Scroller: Journal entry "${journalName}" not found.`);
+        return { journalText };
     }
 
     const journalPages = [...journal.pages.values()]; // Get the text inside the journal pages
@@ -112,9 +112,22 @@ Hooks.once("init", () => {
         default: 'RSS Scroller',
         onChange: (value) => {
             let root = document.querySelector(':root');
-            root.style.setProperty('--rss-titls', `${value}`);
+            root.style.setProperty('--rss-title', `${value}`);
         },
         requiresReload: false
+    });
+    game.settings.register(moduleName, 'journalName', {
+        name: 'Name of Journal to read from to create the RSS Feed',
+        hint: 'Captialization MATTERS. "news feed" != "News Feed". Journal permission does not matter from what I can tell',
+        scope: 'world',
+        config: true,
+        type: String,
+        default: 'News Feed',
+        onChange: (value) => {
+            let root = document.querySelector(':root');
+            root.style.setProperty('--rss-titls', `${value}`);
+        },
+        requiresReload: true
     });
     game.settings.register(moduleName, 'width', {
         name: 'Width',
