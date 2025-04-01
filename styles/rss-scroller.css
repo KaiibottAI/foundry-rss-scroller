@@ -5,7 +5,7 @@
     --rss-height: 100px;
     --rss-background-color: #4a0404;
     --rss-text-color: #d31919;
-    --rss-bolded-text: #d31919;
+    --rss-bolded-text: #d05151;
 }
 
 @keyframes scrollText {
@@ -18,6 +18,7 @@
     }
 }
 
+/* primary way to target the RSS Scroller */
 #foundry-rss-scroller .rss-scroll-content {
     font-family: "Orbitron", sans-serif;
     white-space: nowrap;
@@ -26,6 +27,13 @@
     background: var(--rss-background-color);
     animation: scrollText var(--rss-speed) linear infinite;
     width: fit-content;
+}
+
+/* Target bold text inside the RSS Scroller */
+#foundry-rss-scroller .rss-scroll-content b,
+#foundry-rss-scroller .rss-scroll-content strong,
+#foundry-rss-scroller .rss-scroll-content .bold-text {
+    color: var(--rss-bolded-text);
 }
 
 #foundry-rss-scroller .window-content {
