@@ -24,7 +24,7 @@ class RSSScroller extends Application {
             classes: ["rss-scroll"]
         });
     }
-    
+
     getData() {
         const feedData = fetchRSSFeed();
         return { items: feedData.journalText };
@@ -137,7 +137,7 @@ Hooks.once("init", () => {
     game.settings.register(moduleName, 'resizeable', {
         name: 'Fixed RSS size or Draggable?',
         hint: 'If you choose draggable sizing, the RSS Feed will start at your settings but allow for more flexable drag sizing if preferred.',
-        scope: 'world',
+        scope: 'client',
         config: true,
         type: Boolean,
         default: false,
@@ -161,6 +161,7 @@ Hooks.once("init", () => {
         onChange: (value) => {
             let root = document.querySelector(':root');
             root.style.setProperty('--rss-width', `${value}px`);
+            game.settings.set(moduleName, 'width', value);
         },
         requiresReload: false
     });
@@ -179,6 +180,7 @@ Hooks.once("init", () => {
         onChange: (value) => {
             let root = document.querySelector(':root');
             root.style.setProperty('--rss-height', `${value}px`);
+            game.settings.set(moduleName, 'height', value);
         },
         requiresReload: false
     });
@@ -197,6 +199,7 @@ Hooks.once("init", () => {
         onChange: (value) => {
             let root = document.querySelector(':root');
             root.style.setProperty('--rss-font-size', `${value}px`);
+            game.settings.set(moduleName, 'fontSize', value);
         },
         requiresReload: false
     });
@@ -215,6 +218,7 @@ Hooks.once("init", () => {
         onChange: (value) => {
             let root = document.querySelector(':root');
             root.style.setProperty('--rss-speed', `${value}s`);
+            game.settings.set(moduleName, 'rssSpeed', value);
         },
         requiresReload: false
     });
