@@ -8,6 +8,7 @@ class RSSScroller extends Application {
         options = Object.assign({
             title: game.settings.get(moduleName, 'title') || 'RSS Scroller',
             id: moduleName,
+            resizable: game.settings.get(moduleName, 'resizeable'),
             width: game.settings.get(moduleName, 'width'),
             height: game.settings.get(moduleName, 'height'),
             fontsize: game.settings.get(moduleName, 'fontSize'),
@@ -23,11 +24,7 @@ class RSSScroller extends Application {
             classes: ["rss-scroll"]
         });
     }
-
-    // get template() {
-    //     return "modules/foundry-rss-scroller/templates/rss-scroller.html";
-    // }
-
+    
     getData() {
         const feedData = fetchRSSFeed();
         return { items: feedData.journalText };
@@ -36,8 +33,17 @@ class RSSScroller extends Application {
     // update the fontsize of the rss scroller while you change the value in menu
     activeListeners(html) {
         super.activeListeners(html);
-        const fontSize = game.settings.get(moduleName, 'fontSize')
-        html.find(".rss-scroll-content").css("font-size", `${this.options.fontSize}px`)
+        const updatefontSize = game.settings.get(moduleName, 'fontSize')
+        updateScrollerFontSize(updatefontSize)
+
+        const updatespeed = game.settings.get(moduleName, 'rssSpeed')
+        updateScrollerSpeed(updatespeed)
+
+        const updateHeight = game.settings.get(moduleName, 'height')
+        updateHeight(updateHeight)
+
+        const updateWidth = game.settings.get(moduleName, 'width')
+        updateWidth(updateWidth)
     }
 };
 
@@ -88,9 +94,9 @@ function toggleRSSFeed() {
 };
 
 function updateScrollerFontSize(fontSize) {
-    const scroller = document.querySelector(".rss-scroll-content");
+    const scroller = document.querySelector(":root");
     if (scroller) {
-        scroller.style.fontSize = `${fontSize}px`;
+        scroller.style.setProperty('--rss-font-size', `${fontSize}px`);
     }
 };
 
@@ -124,8 +130,19 @@ Hooks.once("init", () => {
         type: String,
         default: 'News Feed',
         onChange: (value) => {
-            let root = document.querySelector(':root');
-            root.style.setProperty('--rss-titls', `${value}`);
+            game.settings.set(moduleName, 'journalName', value);
+        },
+        requiresReload: true
+    });
+    game.settings.register(moduleName, 'resizeable', {
+        name: 'Fixed RSS size or Draggable?',
+        hint: 'If you choose draggable sizing, the RSS Feed will start at your settings but allow for more flexable drag sizing if preferred.',
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: false,
+        onChange: (value) => {
+            game.settings.set(moduleName, 'resizeable', value);
         },
         requiresReload: true
     });
