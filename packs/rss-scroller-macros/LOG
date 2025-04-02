@@ -1,0 +1,8 @@
+2025/04/01-20:56:43.827 19e08 Recovering log #12
+2025/04/01-20:56:43.835 19e08 Delete type=0 #12
+2025/04/01-20:56:43.835 19e08 Delete type=3 #10
+2025/04/01-21:06:42.237 19050 Level-0 table #17: started
+2025/04/01-21:06:42.237 19050 Level-0 table #17: 0 bytes OK
+2025/04/01-21:06:42.239 19050 Delete type=0 #15
+2025/04/01-21:06:42.239 19050 Manual compaction at level-0 from '!macros!OMG0X1eLwowV1Rk7' @ 72057594037927935 : 1 .. '!macros!OMG0X1eLwowV1Rk7' @ 0 : 0; will stop at (end)
+2025/04/01-21:06:42.239 19050 Manual compaction at level-1 from '!macros!OMG0X1eLwowV1Rk7' @ 72057594037927935 : 1 .. '!macros!OMG0X1eLwowV1Rk7' @ 0 : 0; will stop at (end)
