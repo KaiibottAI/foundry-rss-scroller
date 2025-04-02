@@ -110,8 +110,8 @@ function updateScrollerSpeed(rssSpeed) {
 Hooks.once("init", () => {
 
     game.settings.register(moduleName, 'title', {
-        name: 'Name of RSS Scroller',
-        hint: 'Name of the RSS Window',
+        name: 'RSS Scroller Title',
+        hint: 'The title of the RSS Scroller window that will show to the players.',
         scope: 'world',
         config: true,
         type: String,
@@ -123,7 +123,7 @@ Hooks.once("init", () => {
         requiresReload: false
     });
     game.settings.register(moduleName, 'journalName', {
-        name: 'Name of Journal to read from to create the RSS Feed',
+        name: 'Journal Name',
         hint: 'Captialization MATTERS. "news feed" != "News Feed". Journal permission does not matter from what I can tell',
         scope: 'world',
         config: true,

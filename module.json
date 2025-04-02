@@ -3,7 +3,11 @@
     "title": "RSS Scroller",
     "description": "Displays a scrolling RSS-like feed from a journal entry.",
     "version": "1.0.0",
-    "author": "Kaiibott",
+    "authors": [
+        {
+            "name": "Kaiibott"
+        }
+    ],
     "packs": [],
     "dependencies": [],
     "scripts": [
@@ -19,5 +23,7 @@
     "styles": [
         "styles/rss-scroller.css"
     ],
-    "system": "core"
+    "system": "core",
+    "manifest": "https://github.com/KaiibottAI/foundry-rss-scroller/blob/test/module.json",
+    "url": "https://github.com/KaiibottAI/foundry-rss-scroller/blob/test"
 }
