@@ -3,6 +3,7 @@ const moduleName = 'foundry-rss-scroller'
 
 class RSSScroller extends Application {
 
+    // Please help, I don't know how to get some default stuff to stick. I have it down in the ready hook since I can't figure it :D
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: moduleName,
@@ -22,23 +23,13 @@ class RSSScroller extends Application {
         return { items: feedData.journalText };
     }
 
-    // update the fontsize of the rss scroller while you change the value in menu
     activeListeners(html) {
         super.activeListeners(html);
-        let updatefontSize = game.settings.get(moduleName, 'fontSize');
-        updateScrollerFontSize(updatefontSize);
-
-        let updatespeed = game.settings.get(moduleName, 'rssSpeed');
-        updateScrollerSpeed(updatespeed);
-
-        let updateHeight = game.settings.get(moduleName, 'height');
-        updateHeight(updateHeight);
-
-        let updateWidth = game.settings.get(moduleName, 'width');
-        updateWidth(updateWidth);
     }
 };
 
+// Go get the journal entries and combine them to make a feed.
+// If you only have one page, that's okay, it still works the same.
 function fetchRSSFeed() {
 
     const journalName = game.settings.get(moduleName, 'journalName'); // this needs to be a setting later
@@ -50,12 +41,12 @@ function fetchRSSFeed() {
     }
 
     const journalPages = [...journal.pages.values()]; // Get the text inside the journal pages
-    // const journalText = journalPages.map(pages => pages.text.content).join(" --- ").replace(/<\/?[^>]+(>|$)/g, ''); // join all the pages together to make one long string for the rss srolling
     const journalText = journalPages.map(pages => pages.text.content).join(" --- ").replace(/<p>|<\/p>/g, ''); // join all the pages together to make one long string for the rss srolling
 
     return { journalText };
 };
 
+// open/close the RSS Scroll window
 function toggleRSSFeed() {
     // If there's an existing instance, close it first
     if (rssScrollerInstance) {
@@ -67,6 +58,7 @@ function toggleRSSFeed() {
     };
 };
 
+// Most of these functions are self explanitory by their name
 function updateScrollerFontSize(fontSize) {
     const scroller = document.querySelector(":root");
     if (scroller) {
@@ -97,14 +89,20 @@ function updateRSSXTranslation(xModifier) {
     if (scroller) {
         scroller.style.setProperty('--rss-xTranslate', `${xModifier}%`);
     }
-}
-
+};
 function applyTheme(theme) {
     document.documentElement.setAttribute('data-rss-theme', theme);
+};
+function updateRSSFont(selectedFont) {
+    const scroller = document.querySelector(":root");
+    if (scroller) {
+        scroller.style.setProperty("--rss-font-family", `"${selectedFont}"`);
+    }
 };
 
 Hooks.once("init", () => {
 
+    // Set up all the module settings
     game.settings.register(moduleName, 'rssTheme', {
         name: 'RSS Scroller Theme',
         hint: 'Collection of pre-made themes for the RSS Scroller to have a unique style',
@@ -112,11 +110,11 @@ Hooks.once("init", () => {
         config: true,
         type: String,
         choices: {
-            "cyberpunk-red-analog": "CyberpunkRED",
-            "cyberpunk-blue-analog": "CyberpunkBLUE",
-            "cyberpunk-nuclear-analog": "Nuclear Green"
+            "cyberpunk-red": "CyberpunkRED",
+            "deep-blue": "Deep Blue",
+            "fallout-nuclear": "Fallout Terminal Green"
         },
-        default: 'cyberpunk-red-analog',
+        default: 'cyberpunk-red',
         onChange: (value) => {
             applyTheme(value)
         },
@@ -235,6 +233,8 @@ Hooks.once("init", () => {
         },
         requiresReload: false
     });
+    // So, this might need more info
+    // The way this "scrolls" is by having the div so far to the right by a percentage here. So if 0%, the div is already on screen. If 100%, it is over to the right the same size of the div
     game.settings.register(moduleName, 'rssXTranslate', {
         name: 'Translate X Modifier',
         hint: 'If the RSS Feed looks like it is "taking too long" to start, the X modifier can be adjusted to a lower number to make it shifted left more. This is typically needed to be shifted lower for feeds that do not have a lot of text versus feeds that may have large texts to scroll through.',
@@ -254,25 +254,46 @@ Hooks.once("init", () => {
         },
         requiresReload: false
     });
+    game.settings.register(moduleName, 'rssFont', {
+        name: "RSS Font",
+        hint: "Select the font for the RSS scroller.",
+        scope: "client",
+        config: true,
+        type: String,
+        choices: Object.fromEntries(Object.keys(CONFIG.fontDefinitions).map(f => [f, f])),
+        default: "Orbitron",
+        onChange: (value) => {
+            updateRSSFont(value);
+            game.settings.set(moduleName, 'rssFont', value);
+        },
+        requiresReload: false
+    });
 
 });
 
 // Initialize the scroller when Foundry is ready
 Hooks.once("ready", function () {
 
-    let rssTheme = game.settings.get(moduleName, 'rssTheme');
-    applyTheme(rssTheme);
+    // Added these all down here since this is how I could get the settings to be 'retained' upon reloading. I still do not understand it.
+    let rssThemeToThis = game.settings.get(moduleName, 'rssTheme');
+    applyTheme(rssThemeToThis);
 
-    let updateRSSFontSize = game.settings.get(moduleName, 'fontSize');
-    updateScrollerFontSize(updateRSSFontSize);
+    let updateRSSFontSizeToThis = game.settings.get(moduleName, 'fontSize');
+    updateScrollerFontSize(updateRSSFontSizeToThis);
 
-    let updateRSSSpeed = game.settings.get(moduleName, 'rssSpeed');
-    updateScrollerSpeed(updateRSSSpeed);
+    let updateRSSSpeedToThis = game.settings.get(moduleName, 'rssSpeed');
+    updateScrollerSpeed(updateRSSSpeedToThis);
 
-    let updateRSSHeight = game.settings.get(moduleName, 'height');
-    updateHeight(updateRSSHeight);
+    let updateRSSHeightToThis = game.settings.get(moduleName, 'height');
+    updateHeight(updateRSSHeightToThis);
 
-    let updateRSSWidth = game.settings.get(moduleName, 'width');
-    updateWidth(updateRSSWidth);
+    let updateRSSWidthToThis = game.settings.get(moduleName, 'width');
+    updateWidth(updateRSSWidthToThis);
+
+    let updateXTranslationToThis = game.settings.get(moduleName, 'rssXTranslate');
+    updateRSSXTranslation(updateXTranslationToThis);
+
+    let updateRSSFontToThis = game.settings.get(moduleName, 'rssFont');
+    updateRSSFont(updateRSSFontToThis);
 
 });
