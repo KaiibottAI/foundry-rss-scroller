@@ -23,10 +23,10 @@ Ability to toggle, open, and close the RSS scroller window dynamically via macro
 
 ## Installation
 
-1. Download or clone the module into your FoundryVTT modules directory.
+1. Paste the `module.json` into your Foundry Module Manifest or clone the module into your FoundryVTT modules directory.
 ```
-https://github.com/KaiibottAI/foundry-rss-scroller/blob/test/module.json
-```
+https://raw.githubusercontent.com/KaiibottAI/foundry-rss-scroller/main/module.json
+````
 or
 ```cli
 git clone https://github.com/KaiibottAI/foundry-rss-scroller.git
