@@ -1,5 +1,6 @@
+/* Default settings for the RSS Scroller */
 :root {
-    --rss-font-family: "Orbitron", sans-serif;
+    --rss-font-family: "Orbitron";
     --rss-speed: 100s;
     --rss-font-size: 40px;
     --rss-width: 800px;
@@ -7,24 +8,26 @@
     --rss-xTranslate: 100%;
 }
 
-:root[data-rss-theme="cyberpunk-red-analog"] {
+/* Different theme colours that seemed fun! */
+:root[data-rss-theme="cyberpunk-red"] {
     --rss-background-color: #4a0404;
     --rss-text-color: #d31919;
     --rss-bolded-text: #d05151;
 }
 
-:root[data-rss-theme="cyberpunk-blue-analog"] {
+:root[data-rss-theme="deep-blue"] {
     --rss-background-color: #030056;
     --rss-text-color: #0900ff;
     --rss-bolded-text: #0059ff;
 }
 
-:root[data-rss-theme="cyberpunk-nuclear-analog"] {
+:root[data-rss-theme="fallout-nuclear"] {
     --rss-background-color: #033000;
     --rss-text-color: #00ff00;
     --rss-bolded-text: #ebff00;
 }
 
+/* Where the scroll starts/ends with a percentage */
 @keyframes scrollText {
     0% {
         transform: translateX(var(--rss-xTranslate));
@@ -54,10 +57,12 @@
     color: var(--rss-bolded-text);
 }
 
+/* Colour the background the same as the window to not have a weird gap */
 #foundry-rss-scroller .window-content {
     background: var(--rss-background-color);
 }
 
+/* When a cursour hovers the window, the scrolling text will stop for ease of reading */
 #foundry-rss-scroller .rss-scroll-content:hover {
     animation-play-state: paused !important;
 }
