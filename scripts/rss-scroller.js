@@ -92,6 +92,12 @@ function updateScrollerSpeed(rssSpeed) {
         scroller.style.setProperty('--rss-speed', `${rssSpeed}s`);
     }
 };
+function updateRSSXTranslation(xModifier) {
+    const scroller = document.querySelector(":root");
+    if (scroller) {
+        scroller.style.setProperty('--rss-xTranslate', `${xModifier}%`);
+    }
+}
 
 function applyTheme(theme) {
     document.documentElement.setAttribute('data-rss-theme', theme);
@@ -226,6 +232,25 @@ Hooks.once("init", () => {
             let root = document.querySelector(':root');
             root.style.setProperty('--rss-speed', `${value}s`);
             game.settings.set(moduleName, 'rssSpeed', value);
+        },
+        requiresReload: false
+    });
+    game.settings.register(moduleName, 'rssXTranslate', {
+        name: 'Translate X Modifier',
+        hint: 'If the RSS Feed looks like it is "taking too long" to start, the X modifier can be adjusted to a lower number to make it shifted left more. This is typically needed to be shifted lower for feeds that do not have a lot of text versus feeds that may have large texts to scroll through.',
+        scope: 'world',
+        config: true,
+        type: Number,
+        range: {
+            min: 0,
+            max: 100,
+            step: 1
+        },
+        default: 100,
+        onChange: (value) => {
+            let root = document.querySelector(':root');
+            root.style.setProperty('--rss-xTranslate', `${value}%`);
+            game.settings.set(moduleName, 'rssXTranslate', value);
         },
         requiresReload: false
     });
