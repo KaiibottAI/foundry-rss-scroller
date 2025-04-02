@@ -24,6 +24,6 @@
         "styles/rss-scroller.css"
     ],
     "system": "core",
-    "manifest": "https://github.com/KaiibottAI/foundry-rss-scroller/blob/test/module.json",
-    "url": "https://github.com/KaiibottAI/foundry-rss-scroller/blob/test"
+    "manifest": "https://raw.githubusercontent.com/KaiibottAI/foundry-rss-scroller/test/module.json",
+    "url": "https://github.com/KaiibottAI/foundry-rss-scroller/"
 }
