@@ -9,7 +9,6 @@
         }
     ],
     "packs": [],
-    "dependencies": [],
     "scripts": [
         "scripts/rss-scroller.js"
     ],
@@ -26,5 +25,5 @@
     "system": "core",
     "manifest": "https://raw.githubusercontent.com/KaiibottAI/foundry-rss-scroller/test/module.json",
     "url": "https://github.com/KaiibottAI/foundry-rss-scroller/",
-    "download":"https://github.com/KaiibottAI/foundry-rss-scroller/archive/refs/heads/test.zip"
+    "download": "https://github.com/KaiibottAI/foundry-rss-scroller/archive/refs/heads/test.zip"
 }
