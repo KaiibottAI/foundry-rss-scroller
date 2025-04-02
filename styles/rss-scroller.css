@@ -4,6 +4,7 @@
     --rss-font-size: 40px;
     --rss-width: 800px;
     --rss-height: 100px;
+    --rss-xTranslate: 100%;
 }
 
 :root[data-rss-theme="cyberpunk-red-analog"] {
@@ -26,7 +27,7 @@
 
 @keyframes scrollText {
     0% {
-        transform: translateX(100%);
+        transform: translateX(var(--rss-xTranslate));
     }
 
     100% {
@@ -43,7 +44,7 @@
     color: var(--rss-text-color);
     background: var(--rss-background-color);
     animation: scrollText var(--rss-speed) linear infinite;
-    width: fit-content;
+    width: max-content;
 }
 
 /* Target bold text inside the RSS Scroller */
