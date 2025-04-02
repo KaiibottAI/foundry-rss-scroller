@@ -6,7 +6,7 @@ The FoundryVTT RSS Scroller is a module that creates a scrolling text window in 
 
 ## Features
 
-Reads text from a specified journal entry and displays it as a scrolling news ticker.
+Reads text from a specified journal and all it's entries or pages and displays it as a scrolling news ticker.
 
 Supports dynamic settings, allowing users or the GM to modify:
 
