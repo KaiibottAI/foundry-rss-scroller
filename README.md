@@ -51,9 +51,7 @@ The module provides several customizable settings via Game Settings.
 | Font Size | The default font size of the RSS Scroller text | 40 |
 | RSS Scroll Speed | The speed of the RSS Scroller text. Lower number = Faster speed | 100 |
 
-## Developer API
-
-#### How It Works?
+## How It Works?
 
 The module reads the text from a specified journal entry in the game settings. It processes the content, stripping unnecessary HTML tags, paragraghs and page breaks, and formatting it into a continuous scrolling ticker. The scroller applies Foundry settings to modify its appearance and behavior. The text is animated with CSS to create a seamless scrolling effect.
 
