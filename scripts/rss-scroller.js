@@ -238,16 +238,16 @@ Hooks.once("ready", function () {
     let rssTheme = game.settings.get(moduleName, 'rssTheme');
     applyTheme(rssTheme);
 
-    let updatefontSize = game.settings.get(moduleName, 'fontSize');
-    updateScrollerFontSize(updatefontSize);
+    let updateRSSFontSize = game.settings.get(moduleName, 'fontSize');
+    updateScrollerFontSize(updateRSSFontSize);
 
-    let updatespeed = game.settings.get(moduleName, 'rssSpeed');
-    updateScrollerSpeed(updatespeed);
+    let updateRSSSpeed = game.settings.get(moduleName, 'rssSpeed');
+    updateScrollerSpeed(updateRSSSpeed);
 
-    let updateHeight = game.settings.get(moduleName, 'height');
-    updateHeight(updateHeight);
+    let updateRSSHeight = game.settings.get(moduleName, 'height');
+    updateHeight(updateRSSHeight);
 
-    let updateWidth = game.settings.get(moduleName, 'width');
-    updateWidth(updateWidth);
+    let updateRSSWidth = game.settings.get(moduleName, 'width');
+    updateWidth(updateRSSWidth);
 
 });
