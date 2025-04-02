@@ -2,13 +2,9 @@
 
 ## Overview
 
----
-
 The FoundryVTT RSS Scroller is a module that creates a scrolling text window in FoundryVTT using journal entries as the source for RSS-style news feeds. The feed is fully customizable, allowing users to adjust font size, scrolling speed, window dimensions, and more.
 
 ## Features
-
----
 
 Reads text from a specified journal entry and displays it as a scrolling news ticker.
 
@@ -27,8 +23,6 @@ Ability to toggle, open, and close the RSS scroller window dynamically via macro
 
 ## Installation
 
----
-
 1. Download or clone the module into your FoundryVTT modules directory.
 ```
 https://github.com/KaiibottAI/foundry-rss-scroller/blob/test/module.json
@@ -42,7 +36,6 @@ git clone https://github.com/KaiibottAI/foundry-rss-scroller.git
 
 ## Settings
 
----
 
 The module provides several customizable settings via Game Settings.
 
@@ -57,7 +50,6 @@ The module provides several customizable settings via Game Settings.
 | RSS Scroll Speed | The speed of the RSS Scroller text. Lower number = Faster speed | 100 |
 
 ## Developer API
-----
 
 #### How It Works?
 
@@ -80,17 +72,17 @@ The module reads the text from a specified journal entry in the game settings. I
 
 ## Macros available
 
-Open the RSS Feed
+Open the RSS Feed Window
 ```javascript
 openRSSFeed();
 ```
 
-Close the RSS Feed
+Close the RSS Feed Window
 ```javascript
 closeRSSFeed();
 ```
 
-Toggle the RSS Feed
+Toggle the RSS Feed Window
 ```javascript
 toggleRSSFeed();
 ```
