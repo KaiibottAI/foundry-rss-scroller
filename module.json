@@ -37,6 +37,6 @@
     "styles": [
         "styles/rss-scroller.css"
     ],
-    "manifest": "https://raw.githubusercontent.com/KaiibottAI/foundry-rss-scroller/releases/latest/download/module.json",
+    "manifest": "https://raw.githubusercontent.com/KaiibottAI/foundry-rss-scroller/main/module.json",
     "download": "https://github.com/KaiibottAI/foundry-rss-scroller/releases/download/1.0.2/foundry-rss-scroller.zip"
 }
