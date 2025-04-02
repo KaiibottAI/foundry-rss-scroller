@@ -1,18 +1,33 @@
 {
     "id": "foundry-rss-scroller",
     "title": "RSS Scroller",
-    "description": "Displays a scrolling RSS-like feed from a journal entry.",
     "version": "1.0.0",
     "compatibility": {
         "minimum": "11",
         "verified": "11"
     },
+    "description": "Displays a scrolling RSS-like feed from a journal entry.",
     "authors": [
         {
-            "name": "Kaiibott"
+            "name": "Kaiibott",
+            "discord": "kaiibott",
+            "flags": {}
         }
     ],
-    "packs": [],
+    "url": "https://github.com/KaiibottAI/foundry-rss-scroller/",
+    "packs": [
+        {
+            "name": "rss-scroller-macros",
+            "label": "RSS Scroller Macros",
+            "path": "packs/rss-scroller-macros",
+            "type": "Macro",
+            "ownership": {
+                "PLAYER": "OBSERVER",
+                "ASSISTANT": "OWNER"
+            },
+            "flags": {}
+        }
+    ],
     "scripts": [
         "scripts/rss-scroller.js"
     ],
@@ -23,6 +38,5 @@
         "styles/rss-scroller.css"
     ],
     "manifest": "https://raw.githubusercontent.com/KaiibottAI/foundry-rss-scroller/test/module.json",
-    "url": "https://github.com/KaiibottAI/foundry-rss-scroller/",
     "download": "https://github.com/KaiibottAI/foundry-rss-scroller/archive/refs/heads/test.zip"
 }

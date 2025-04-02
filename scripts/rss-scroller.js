@@ -135,7 +135,7 @@ Hooks.once("init", () => {
         requiresReload: true
     });
     game.settings.register(moduleName, 'resizeable', {
-        name: 'Fixed RSS size or Draggable?',
+        name: 'Fixed RSS Size or Draggable?',
         hint: 'If you choose draggable sizing, the RSS Feed will start at your settings but allow for more flexable drag sizing if preferred.',
         scope: 'client',
         config: true,
