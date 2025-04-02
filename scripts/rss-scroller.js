@@ -3,24 +3,16 @@ const moduleName = 'foundry-rss-scroller'
 
 class RSSScroller extends Application {
 
-    constructor(options = {}) {
-        // assign dynamically for things that the gm would want to add
-        options = Object.assign({
-            title: game.settings.get(moduleName, 'title') || 'RSS Scroller',
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
             id: moduleName,
+            title: game.settings.get(moduleName, 'title') || 'RSS Scroller',
             resizable: game.settings.get(moduleName, 'resizeable'),
             width: game.settings.get(moduleName, 'width'),
             height: game.settings.get(moduleName, 'height'),
             fontsize: game.settings.get(moduleName, 'fontSize'),
             rssspeed: game.settings.get(moduleName, 'rssSpeed'),
-            template: "modules/foundry-rss-scroller/templates/rss-scroller.html"
-        }, options);
-
-        super(options);
-    }
-
-    static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+            template: "modules/foundry-rss-scroller/templates/rss-scroller.html",
             classes: ["rss-scroll"]
         });
     }
@@ -33,17 +25,17 @@ class RSSScroller extends Application {
     // update the fontsize of the rss scroller while you change the value in menu
     activeListeners(html) {
         super.activeListeners(html);
-        const updatefontSize = game.settings.get(moduleName, 'fontSize')
-        updateScrollerFontSize(updatefontSize)
+        let updatefontSize = game.settings.get(moduleName, 'fontSize');
+        updateScrollerFontSize(updatefontSize);
 
-        const updatespeed = game.settings.get(moduleName, 'rssSpeed')
-        updateScrollerSpeed(updatespeed)
+        let updatespeed = game.settings.get(moduleName, 'rssSpeed');
+        updateScrollerSpeed(updatespeed);
 
-        const updateHeight = game.settings.get(moduleName, 'height')
-        updateHeight(updateHeight)
+        let updateHeight = game.settings.get(moduleName, 'height');
+        updateHeight(updateHeight);
 
-        const updateWidth = game.settings.get(moduleName, 'width')
-        updateWidth(updateWidth)
+        let updateWidth = game.settings.get(moduleName, 'width');
+        updateWidth(updateWidth);
     }
 };
 
@@ -64,24 +56,6 @@ function fetchRSSFeed() {
     return { journalText };
 };
 
-function openRSSFeed() {
-    // If there's an existing instance, close it first
-    if (rssScrollerInstance) {
-        rssScrollerInstance.close();
-    }
-
-    // Create a new instance and render it
-    rssScrollerInstance = new RSSScroller();
-    rssScrollerInstance.render(true);
-};
-
-function closeRSSFeed() {
-    // If there's an existing instance, close it first
-    if (rssScrollerInstance) {
-        rssScrollerInstance.close();
-    }
-};
-
 function toggleRSSFeed() {
     // If there's an existing instance, close it first
     if (rssScrollerInstance) {
@@ -100,15 +74,48 @@ function updateScrollerFontSize(fontSize) {
     }
 };
 
-function updateScrollerSpeed(rssSpeed) {
-    const scroller = document.querySelector(".rss-scroll-content");
+function updateHeight(height) {
+    const scroller = document.querySelector(":root");
     if (scroller) {
-        scroller.style.animation = `scrollText ${rssSpeed}s linear infinite`;
+        scroller.style.setProperty('--rss-height', `${height}px`);
     }
+};
+function updateWidth(width) {
+    const scroller = document.querySelector(":root");
+    if (scroller) {
+        scroller.style.setProperty('--rss-width', `${width}px`);
+    }
+};
+function updateScrollerSpeed(rssSpeed) {
+    const scroller = document.querySelector(":root");
+    if (scroller) {
+        scroller.style.setProperty('--rss-speed', `${rssSpeed}s`);
+    }
+};
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-rss-theme', theme);
 };
 
 Hooks.once("init", () => {
 
+    game.settings.register(moduleName, 'rssTheme', {
+        name: 'RSS Scroller Theme',
+        hint: 'Collection of pre-made themes for the RSS Scroller to have a unique style',
+        scope: 'world',
+        config: true,
+        type: String,
+        choices: {
+            "cyberpunk-red-analog": "CyberpunkRED",
+            "cyberpunk-blue-analog": "CyberpunkBLUE",
+            "cyberpunk-nuclear-analog": "Nuclear Green"
+        },
+        default: 'cyberpunk-red-analog',
+        onChange: (value) => {
+            applyTheme(value)
+        },
+        requiresReload: false
+    });
     game.settings.register(moduleName, 'title', {
         name: 'RSS Scroller Title',
         hint: 'The title of the RSS Scroller window that will show to the players.',
@@ -120,7 +127,7 @@ Hooks.once("init", () => {
             let root = document.querySelector(':root');
             root.style.setProperty('--rss-title', `${value}`);
         },
-        requiresReload: false
+        requiresReload: true
     });
     game.settings.register(moduleName, 'journalName', {
         name: 'Journal Name',
@@ -228,6 +235,19 @@ Hooks.once("init", () => {
 // Initialize the scroller when Foundry is ready
 Hooks.once("ready", function () {
 
-    // openRSSFeed(); // leave here to make sure this still works
+    let rssTheme = game.settings.get(moduleName, 'rssTheme');
+    applyTheme(rssTheme);
+
+    let updatefontSize = game.settings.get(moduleName, 'fontSize');
+    updateScrollerFontSize(updatefontSize);
+
+    let updatespeed = game.settings.get(moduleName, 'rssSpeed');
+    updateScrollerSpeed(updatespeed);
+
+    let updateHeight = game.settings.get(moduleName, 'height');
+    updateHeight(updateHeight);
+
+    let updateWidth = game.settings.get(moduleName, 'width');
+    updateWidth(updateWidth);
 
 });
