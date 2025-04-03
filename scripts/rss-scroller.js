@@ -133,6 +133,20 @@ Hooks.once("init", () => {
         },
         requiresReload: true
     });
+    game.settings.register(moduleName, 'rssFont', {
+        name: "RSS Font",
+        hint: "Select the font for the RSS scroller.",
+        scope: "client",
+        config: true,
+        type: String,
+        choices: Object.fromEntries(Object.keys(CONFIG.fontDefinitions).map(f => [f, f])),
+        default: "Orbitron",
+        onChange: (value) => {
+            updateRSSFont(value);
+            game.settings.set(moduleName, 'rssFont', value);
+        },
+        requiresReload: false
+    });
     game.settings.register(moduleName, 'journalName', {
         name: 'Journal Name',
         hint: 'Captialization MATTERS. "news feed" != "News Feed". Journal permission does not matter from what I can tell',
@@ -251,20 +265,6 @@ Hooks.once("init", () => {
             let root = document.querySelector(':root');
             root.style.setProperty('--rss-xTranslate', `${value}%`);
             game.settings.set(moduleName, 'rssXTranslate', value);
-        },
-        requiresReload: false
-    });
-    game.settings.register(moduleName, 'rssFont', {
-        name: "RSS Font",
-        hint: "Select the font for the RSS scroller.",
-        scope: "client",
-        config: true,
-        type: String,
-        choices: Object.fromEntries(Object.keys(CONFIG.fontDefinitions).map(f => [f, f])),
-        default: "Orbitron",
-        onChange: (value) => {
-            updateRSSFont(value);
-            game.settings.set(moduleName, 'rssFont', value);
         },
         requiresReload: false
     });
