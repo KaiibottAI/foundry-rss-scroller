@@ -1,36 +1,43 @@
-# FoundryVTT RSS Scroller
+# FoundryVTT RSS Journal Text Scroller
 
 ## Overview
 
-The FoundryVTT RSS Scroller is a module that creates a scrolling text window in FoundryVTT using journal entries as the source for RSS-style news feeds. The feed is fully customizable, allowing users to adjust font size, scrolling speed, window dimensions, and more.
+The FoundryVTT RSS Scroller is a module that creates a scrolling text window in FoundryVTT using journal entries as the source for RSS-style news feeds. The feed is fully customizable, allowing adjustment to the theme, font size, scrolling speed, window dimensions, and more.
 
-![](rss-scroller-in-action2.gif)
+![](example-images/rss-scroller-in-action2.gif)
 
 ## Features
 
-Reads text from a specified journal and all it's entries or pages and displays it as a scrolling news ticker.
+The Scroller reads text from a journal you set up and all it's entries or pages and displays it as a horizontal scrolling news ticker. Great for having in-world news for your table! Did the party do something crazy and the world should react? Here's the best way to do that!
+
+![](example-images/rss-scroller-blue.png)
+![](example-images/rss-scroller-green.png)
 
 Supports dynamic settings, allowing users or the GM to modify:
 
-- RSS Window Title (GM)
-- Journal source (GM)
-- Font size (User or GM)
-- Scroll speed (User or GM)
-- Window width & height (GM)
-- Resizable or fixed window size (User or GM)
-
-Ability to toggle, open, and close the RSS scroller window dynamically via macro.
+- RSS Scroller Theme (User)
+- RSS Scroller Title (GM)
+- RSS Scroller Font (User)
+- RSS Journal Source (GM)
+- Resizable or fixed window size (User)
+- Default RSS Window width & height (GM)
+- RSS Font size (User)
+- RSS Scroll speed (User)
 
 ## Installation
 
 1. Paste the `module.json` into your Foundry Module Manifest or clone the module into your FoundryVTT modules directory.
+
 ```
 https://raw.githubusercontent.com/KaiibottAI/foundry-rss-scroller/main/module.json
-````
+```
+
 or
-```cli
+
+```cmd
 git clone https://github.com/KaiibottAI/foundry-rss-scroller.git
 ```
+
 2. Add the module to your game via Manage Modules in FoundryVTT.
 3. Enable it in your world modules.
 
@@ -39,27 +46,31 @@ git clone https://github.com/KaiibottAI/foundry-rss-scroller.git
 
 The module provides several customizable settings via Game Settings.
 
-![](rss-scroller-gm-settings.png)
+![](example-images/rss-scroller-settings.png)
 
 | Setting | Description | Default |
 | :-: | - | :-: |
+| RSS Scroller Theme | Change the colour theme of the RSS Scroller. There are three options available right now, CyberpunkRED, Deep Blue and Fallout Terminal Green | CyberpunkRED | 
 | RSS Scroller Title | The title of the RSS Scroller window that will show to the players | "RSS Scroller" | 
 | Journal Name | The Journal name where the RSS Scroller will retrieve information from. This RSS Scroller does respect any html code you may have for the text, for example bolding and italics. Does not respect images linked in the journal.| "News Feed" |
-| Fixed RSS Size | Toggle for if the RSS Scroller should be resizable on the fly or if you prefer rigid numbers of the height and width | False |
+| Fixed RSS Size or Draggable? | Toggle for if the RSS Scroller should be resizable on the fly or if you prefer rigid numbers of the height and width | False |
 | Width | The default width of the RSS Scroller window | 800 |
 | Height | The default height of the RSS Scroller window | 100 |
 | Font Size | The default font size of the RSS Scroller text | 40 |
-| RSS Scroll Speed | The speed of the RSS Scroller text. Lower number = Faster speed | 100 |
+| RSS Speed | The speed of the RSS Scroller text. Lower number = Faster speed | 100 |
+| Translate X Modifier | If your scroller looping has the text "popping in" furhter to the left than you like, increase the number to have it start furhter to the right. If it is taking to long to "pop in", lower the number to shift it more left. This is usually needed if you have A LOT of text to scroll through. | 100 |
+| RSS Font | List of Fonts available for the Scroller to use. Uses the default Foundry Font listing | Orbital |
 
-## How It Works?
+## How Does It Works?
 
-The module reads the text from a specified journal entry in the game settings. It processes the content, stripping unnecessary HTML tags, paragraghs and page breaks, and formatting it into a continuous scrolling ticker. The scroller applies Foundry settings to modify its appearance and behavior. The text is animated with CSS to create a seamless scrolling effect.
+The module reads the text from a specified journal entry in the game settings. It processes the text content, stripping unnecessary HTML tags, paragraghs and page breaks, and formatting it into a continuous scrolling ticker. The scroller applies Foundry settings to modify its appearance and behavior and is animated with CSS to create a seamless scrolling effect. Great for having news given back to your players about things happening in your world!
 
 #### Future Enhancements
 
 - Support for multiple feeds and cycling between them.
-- Additional customization options (e.g., text color, background color).
-    - Themes
+- Successfully added Themes in 1.1.1! 
+    - ~~Additional customization options (e.g., text color, background color).~~
+    - ~~Themes~~
 
 #### Troubleshooting
 
@@ -72,17 +83,17 @@ The module reads the text from a specified journal entry in the game settings. I
 
 ## Macros available
 
-Open the RSS Feed Window
-```javascript
-openRSSFeed();
-```
-
-Close the RSS Feed Window
-```javascript
-closeRSSFeed();
-```
-
-Toggle the RSS Feed Window
+Toggle the RSS Feed Window. This macro is included in a compendium on install for ease of access.
 ```javascript
 toggleRSSFeed();
+```
+
+Toggle the RSS Feed Theme
+```javascript
+// If you want the red on red like an OG digital clock
+applyTheme("cyberpunk-red");
+// blue on blue like a super relaxed dark theme
+applyTheme("deep-blue");
+// green on green like a Fallout Terminal
+applyTheme("fallout-nuclear");
 ```
