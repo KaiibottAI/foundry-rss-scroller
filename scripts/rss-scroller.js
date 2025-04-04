@@ -62,38 +62,22 @@ function toggleRSSFeed() {
 
 // Most of these functions are self explanitory by their name
 function updateScrollerFontSize(fontSize) {
-    const scroller = document.querySelector(":root");
-    if (scroller) {
-        scroller.style.setProperty('--rss-font-size', `${fontSize}px`);
-    }
+    document.documentElement?.style.setProperty('--rss-font-size', `${fontSize}px`);
 };
-
-function updateHeight(height) {
-    const scroller = document.querySelector(":root");
-    if (scroller) {
-        scroller.style.setProperty('--rss-height', `${height}px`);
-    }
+function updateRSSHeight(height) {
+    document.documentElement?.style.setProperty('--rss-height', `${height}px`);
 };
-function updateWidth(width) {
-    const scroller = document.querySelector(":root");
-    if (scroller) {
-        scroller.style.setProperty('--rss-width', `${width}px`);
-    }
+function updateRSSWidth(width) {
+    document.documentElement?.style.setProperty('--rss-width', `${width}px`);
 };
-function updateScrollerSpeed(rssSpeed) {
-    const scroller = document.querySelector(":root");
-    if (scroller) {
-        scroller.style.setProperty('--rss-speed', `${rssSpeed}s`);
-    }
+function updateRSSScrollerSpeed(rssSpeed) {
+    document.documentElement?.style.setProperty('--rss-speed', `${rssSpeed}s`);
 };
-function applyTheme(theme) {
+function applyRSSTheme(theme) {
     document.documentElement.setAttribute('data-rss-theme', theme);
 };
 function updateRSSFont(selectedFont) {
-    const scroller = document.querySelector(":root");
-    if (scroller) {
-        scroller.style.setProperty("--rss-font-family", `"${selectedFont}"`);
-    }
+    document.documentElement?.style.setProperty("--rss-font-family", `"${selectedFont}"`);
 };
 
 Hooks.once("init", () => {
@@ -112,7 +96,7 @@ Hooks.once("init", () => {
         },
         default: 'cyberpunk-red',
         onChange: (value) => {
-            applyTheme(value)
+            applyRSSTheme(value)
         },
         requiresReload: false
     });
@@ -199,9 +183,7 @@ Hooks.once("init", () => {
         },
         default: 100,
         onChange: (value) => {
-            let root = document.querySelector(':root');
-            root.style.setProperty('--rss-height', `${value}px`);
-            game.settings.set(moduleName, 'height', value);
+            updateRSSHeight(value);
         },
         requiresReload: false
     });
@@ -250,10 +232,11 @@ Hooks.once("init", () => {
 Hooks.once("ready", () => {
 
     // Added these all down here since this is how I could get the settings to be 'retained' upon reloading. I still do not understand it.
-    applyTheme(game.settings.get(moduleName, 'rssTheme'));
+    applyRSSTheme(game.settings.get(moduleName, 'rssTheme'));
     updateScrollerFontSize(game.settings.get(moduleName, 'fontSize'));
-    updateScrollerSpeed(game.settings.get(moduleName, 'rssSpeed'));
-    updateHeight(game.settings.get(moduleName, 'height'));
-    updateWidth(game.settings.get(moduleName, 'width'));
+    updateRSSScrollerSpeed(game.settings.get(moduleName, 'rssSpeed'));
+    updateRSSHeight(game.settings.get(moduleName, 'height'));
+    updateRSSWidth(game.settings.get(moduleName, 'width'));
     updateRSSFont(game.settings.get(moduleName, 'rssFont'));
+
 });
