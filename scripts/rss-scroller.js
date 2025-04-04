@@ -20,7 +20,9 @@ class RSSScroller extends Application {
 
     getData() {
         const feedData = fetchRSSFeed();
-        return { items: feedData.journalText };
+        return {
+            items: feedData.journalText
+        };
     }
 
     activeListeners(html) {
@@ -82,12 +84,6 @@ function updateScrollerSpeed(rssSpeed) {
     const scroller = document.querySelector(":root");
     if (scroller) {
         scroller.style.setProperty('--rss-speed', `${rssSpeed}s`);
-    }
-};
-function updateRSSXTranslation(xModifier) {
-    const scroller = document.querySelector(":root");
-    if (scroller) {
-        scroller.style.setProperty('--rss-xTranslate', `${xModifier}%`);
     }
 };
 function applyTheme(theme) {
@@ -247,53 +243,17 @@ Hooks.once("init", () => {
         },
         requiresReload: false
     });
-    // So, this might need more info
-    // The way this "scrolls" is by having the div so far to the right by a percentage here. So if 0%, the div is already on screen. If 100%, it is over to the right the same size of the div
-    game.settings.register(moduleName, 'rssXTranslate', {
-        name: 'Translate X Modifier',
-        hint: 'If the RSS Feed looks like it is "taking too long" to start, the X modifier can be adjusted to a lower number to make it shifted left more. This is typically needed to be shifted lower for feeds that do not have a lot of text versus feeds that may have large texts to scroll through.',
-        scope: 'world',
-        config: true,
-        type: Number,
-        range: {
-            min: 0,
-            max: 100,
-            step: 1
-        },
-        default: 100,
-        onChange: (value) => {
-            let root = document.querySelector(':root');
-            root.style.setProperty('--rss-xTranslate', `${value}%`);
-            game.settings.set(moduleName, 'rssXTranslate', value);
-        },
-        requiresReload: false
-    });
 
 });
 
 // Initialize the scroller when Foundry is ready
-Hooks.once("ready", function () {
+Hooks.once("ready", () => {
 
     // Added these all down here since this is how I could get the settings to be 'retained' upon reloading. I still do not understand it.
-    let rssThemeToThis = game.settings.get(moduleName, 'rssTheme');
-    applyTheme(rssThemeToThis);
-
-    let updateRSSFontSizeToThis = game.settings.get(moduleName, 'fontSize');
-    updateScrollerFontSize(updateRSSFontSizeToThis);
-
-    let updateRSSSpeedToThis = game.settings.get(moduleName, 'rssSpeed');
-    updateScrollerSpeed(updateRSSSpeedToThis);
-
-    let updateRSSHeightToThis = game.settings.get(moduleName, 'height');
-    updateHeight(updateRSSHeightToThis);
-
-    let updateRSSWidthToThis = game.settings.get(moduleName, 'width');
-    updateWidth(updateRSSWidthToThis);
-
-    let updateXTranslationToThis = game.settings.get(moduleName, 'rssXTranslate');
-    updateRSSXTranslation(updateXTranslationToThis);
-
-    let updateRSSFontToThis = game.settings.get(moduleName, 'rssFont');
-    updateRSSFont(updateRSSFontToThis);
-
+    applyTheme(game.settings.get(moduleName, 'rssTheme'));
+    updateScrollerFontSize(game.settings.get(moduleName, 'fontSize'));
+    updateScrollerSpeed(game.settings.get(moduleName, 'rssSpeed'));
+    updateHeight(game.settings.get(moduleName, 'height'));
+    updateWidth(game.settings.get(moduleName, 'width'));
+    updateRSSFont(game.settings.get(moduleName, 'rssFont'));
 });
