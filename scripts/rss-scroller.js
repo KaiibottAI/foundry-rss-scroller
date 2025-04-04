@@ -34,8 +34,8 @@ class RSSScroller extends Application {
 // If you only have one page, that's okay, it still works the same.
 function fetchRSSFeed() {
 
-    const journalName = game.settings.get(moduleName, 'journalName'); // this needs to be a setting later
-    const journal = game.journal.getName(journalName); // Finds journal by name
+    const journalName = game.settings.get(moduleName, 'journalName');
+    const journal = game.journal.getName(journalName);
 
     if (!journal) {
         ui.notifications.warn(`RSS Scroller: Journal entry "${journalName}" not found.`);
