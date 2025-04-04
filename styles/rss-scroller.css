@@ -29,7 +29,7 @@
 /* Where the scroll starts/ends with a percentage */
 @keyframes scrollText {
     0% {
-        transform: translateX(50vw);
+        transform: translateX(100vw);
     }
 
     100% {
