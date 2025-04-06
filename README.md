@@ -2,6 +2,8 @@
 
 ## Overview
 
+Do your Edgerunners watch the Corpo news propaganda that gets spread about them after their Friday Night Firefights? What about the weather before a road trip across the badlands? Is there a sale for the latest and greatest in Mr Stud or Midnight Lady technology your players have been looking for? Are there new deals for drinks at the local bar? Well now you can see it all laid out --- with a live news ticker in FoundryVTT! Feed your table in-universe headlines, corporate spin, or underground rumors straight from your journal entries. If you write it, the ticker runs it. 
+
 The FoundryVTT RSS Scroller is a module that creates a scrolling text window in FoundryVTT using journal entries as the source for RSS-style news feeds. The feed is fully customizable, allowing adjustment to the theme, font size, scrolling speed, window dimensions, and more.
 
 ![](example-images/rss-scroller-in-action2.gif)
