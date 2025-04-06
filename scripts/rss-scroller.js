@@ -195,7 +195,7 @@ Hooks.once("init", () => {
     });
     game.settings.register(moduleName, 'rssSpeed', {
         name: 'RSS Speed',
-        hint: 'The speed of the RSS Scroller text. Higher number = slower speed.',
+        hint: 'The speed of the RSS Scroller text. This controls "how long" the scroller takes to go thru the text. Higher number = slower speed.',
         scope: 'client',
         config: true,
         type: Number,
