@@ -57,8 +57,7 @@ The module provides several customizable settings via Game Settings.
 | Width | The default width of the RSS Scroller window | 800 |
 | Height | The default height of the RSS Scroller window | 100 |
 | Font Size | The default font size of the RSS Scroller text | 40 |
-| RSS Speed | The speed of the RSS Scroller text. Lower number = Faster speed | 100 |
-| Translate X Modifier | If your scroller looping has the text "popping in" furhter to the left than you like, increase the number to have it start furhter to the right. If it is taking to long to "pop in", lower the number to shift it more left. This is usually needed if you have A LOT of text to scroll through. | 100 |
+| RSS Speed | The speed of the RSS Scroller text. Lower number = Faster speed | 20 |
 | RSS Font | List of Fonts available for the Scroller to use. Uses the default Foundry Font listing | Orbital |
 
 ## How Does It Works?
@@ -77,7 +76,7 @@ The module reads the text from a specified journal entry in the game settings. I
 - Journal entry not found? Double-check the name in the settings (case-sensitive).
     - Double check the name you have in the RSS Scroller setting `Journal Name`, capitalization does matter. "News Feed" is not equal to "news feed".
 - Text scrolling too fast/slow?
-    -  Adjust the RSS Speed setting to a higher number.
+    -  Adjust the RSS Speed setting to a higher number. This controls "how long" the text will take to scroll thru the feed. Higher number = Slower speed.
 - Window size not right?
     -  Modify the Width and Height settings or toggle the "resizeable" setting on for more control.
 
