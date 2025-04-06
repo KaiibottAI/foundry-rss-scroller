@@ -74,6 +74,7 @@ function updateRSSScrollerSpeed(rssSpeed) {
     document.documentElement?.style.setProperty('--rss-speed', `${rssSpeed}s`);
 };
 function applyRSSTheme(theme) {
+    game.settings.set(moduleName, 'rssTheme', theme);
     document.documentElement.setAttribute('data-rss-theme', theme);
 };
 function updateRSSFont(selectedFont) {
@@ -112,20 +113,6 @@ Hooks.once("init", () => {
             root.style.setProperty('--rss-title', `${value}`);
         },
         requiresReload: true
-    });
-    game.settings.register(moduleName, 'rssFont', {
-        name: "RSS Font",
-        hint: "Select the font for the RSS scroller.",
-        scope: "client",
-        config: true,
-        type: String,
-        choices: Object.fromEntries(Object.keys(CONFIG.fontDefinitions).map(f => [f, f])),
-        default: "Orbitron",
-        onChange: (value) => {
-            updateRSSFont(value);
-            game.settings.set(moduleName, 'rssFont', value);
-        },
-        requiresReload: false
     });
     game.settings.register(moduleName, 'journalName', {
         name: 'Journal Name',
@@ -217,7 +204,7 @@ Hooks.once("init", () => {
             max: 300,
             step: 1
         },
-        default: 100,
+        default: 20,
         onChange: (value) => {
             let root = document.querySelector(':root');
             root.style.setProperty('--rss-speed', `${value}s`);
@@ -230,6 +217,24 @@ Hooks.once("init", () => {
 
 // Initialize the scroller when Foundry is ready
 Hooks.once("ready", () => {
+
+    // This has to load later since Foundry loads fonts at a different time that is past `init` :(
+    game.settings.register(moduleName, 'rssFont', {
+        name: "RSS Font",
+        hint: "Select the font for the RSS scroller. Supports Custom Fonts if uploaded to Foundry Font Settings.",
+        scope: "client",
+        config: true,
+        type: String,
+        // choices: Object.fromEntries(Object.keys(CONFIG.fontDefinitions).map(f => [f, f])), // Default foundry fonts that are loaded
+        choices: Object.fromEntries(Object.keys(FontConfig.getAvailableFontChoices()).map(f => [f, f])), // Get all fonts that are available for edit in Foundry, including custom upload
+        default: "Orbitron",
+        onChange: (value) => {
+            updateRSSFont(value);
+            game.settings.set(moduleName, 'rssFont', value);
+        },
+        requiresReload: false
+    });
+
 
     // Added these all down here since this is how I could get the settings to be 'retained' upon reloading. I still do not understand it.
     applyRSSTheme(game.settings.get(moduleName, 'rssTheme'));
