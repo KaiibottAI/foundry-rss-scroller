@@ -60,7 +60,7 @@ The module provides several customizable settings via Game Settings.
 | Height | The default height of the RSS Scroller window | 100 |
 | Font Size | The default font size of the RSS Scroller text | 40 |
 | RSS Speed | The speed of the RSS Scroller text. Lower number = Faster speed | 20 |
-| RSS Font | List of Fonts available for the Scroller to use. Uses the default Foundry Font listing | Orbital |
+| RSS Font | List of Fonts available for the Scroller to use. Supports Custom Fonts inside Foundry | Orbital |
 
 ## How Does It Works?
 
