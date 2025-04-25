@@ -1,4 +1,3 @@
-let rssScrollerInstance = null; // Store the current instance of an rss feed
 const moduleName = 'foundry-rss-scroller'
 
 class RSSScroller extends Application {
@@ -48,16 +47,16 @@ function fetchRSSFeed() {
     return { journalText };
 };
 
-// open/close the RSS Scroll window
+// // open/close the RSS Scroll window
 function toggleRSSFeed() {
-    // If there's an existing instance, close it first
-    if (rssScrollerInstance) {
-        rssScrollerInstance.close();
-        rssScrollerInstance = null
-    } else {
-        rssScrollerInstance = new RSSScroller();
-        rssScrollerInstance.render(true);
-    };
+    // Ensure an instance exists
+    // courtesy of @mxzf from FoundryVTT Discord 
+    // JS has a fun little ??= operator, nullish coalescing assignment, which says "if this thing exists, cool; if it doesn't, assign this to it"
+    ui['RSSScroller'] ??= new RSSScroller();
+    // If it's already rendered, close it (this doesn't delete it, it simply closes the app)
+    if (ui.RSSScroller.rendered) ui.RSSScroller.close();
+    // Otherwise, if it's not rendered, render it
+    else ui.RSSScroller.render(true);
 };
 
 // Most of these functions are self explanitory by their name
