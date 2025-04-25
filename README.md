@@ -72,6 +72,7 @@ The module reads the text from a specified journal entry in the game settings. I
 - Successfully added Themes in 1.1.1! 
     - ~~Additional customization options (e.g., text color, background color).~~
     - ~~Themes~~
+- Successfully fixed Journal Page ordering in 1.3.0!
 
 #### Troubleshooting
 
