@@ -4,7 +4,7 @@ class RSSScroller extends Application {
 
     // Please help, I don't know how to get some default stuff to stick. I have it down in the ready hook since I can't figure it :D
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: moduleName,
             title: game.settings.get(moduleName, 'title') || 'RSS Scroller',
             resizable: game.settings.get(moduleName, 'resizeable'),
@@ -19,6 +19,9 @@ class RSSScroller extends Application {
 
     getData() {
         const feedData = fetchRSSFeed();
+        if (!feedData || feedData.journalText.length === 0) {
+            ui.notifications.warn(`${moduleName} | No journal text found for rendering.`);
+        };
         return {
             items: feedData.journalText
         };
@@ -37,15 +40,28 @@ function fetchRSSFeed() {
     const journal = game.journal.getName(journalName);
 
     if (!journal) {
-        ui.notifications.warn(`RSS Scroller: Journal entry "${journalName}" not found.`);
-        return { journalText };
+        ui.notifications.warn(`${moduleName} | Journal entry "${journalName}" not found.`);
+        return { journalText: "" };  // Return an empty string if no journal found
     }
 
-    const journalPages = [...journal.pages.values()]; // Get the text inside the journal pages
-    const journalText = journalPages.map(pages => pages.text.content).join(" --- ").replace(/<p>|<\/p>/g, ''); // join all the pages together to make one long string for the rss srolling
+    // Get the pages sorted by the 'sort' field to match the visual order
+    const journalPages = [...journal.pages._source]
+        .sort((a, b) => a.sort - b.sort); // Sort by the 'sort' field
+
+    if (!journalPages || journalPages.length === 0) {
+        ui.notifications.warn(`${moduleName} | Journal entry "${journalName}" doesn't appear to have pages with text.`);
+        return { journalText: "" };  // Return an empty string if no pages found
+    }
+
+    // Combine the text content from each page and clean the HTML tags
+    const journalText = journalPages
+        .map(page => page.text.content)  // Access the text content from each page
+        .join(" --- ")  // Combine the text content with separator
+        .replace(/<p>|<\/p>/g, '');  // Remove <p> tags to prevent extra line breaks
 
     return { journalText };
-};
+}
+
 
 // // open/close the RSS Scroll window
 function toggleRSSFeed() {
