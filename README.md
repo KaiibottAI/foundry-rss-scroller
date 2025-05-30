@@ -1,4 +1,5 @@
 # FoundryVTT RSS Journal Text Scroller
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/kaiibottai/foundry-rss-scroller/total)
 
 ## Overview
 
