@@ -63,7 +63,7 @@ The module provides several customizable settings via Game Settings.
 | RSS Speed | The speed of the RSS Scroller text. Lower number = Faster speed | 20 |
 | RSS Font | List of Fonts available for the Scroller to use. Supports Custom Fonts inside Foundry | Orbital |
 
-## How Does It Works?
+## How Does It Work?
 
 The module reads the text from a specified journal entry in the game settings. It processes the text content, stripping unnecessary HTML tags, paragraghs and page breaks, and formatting it into a continuous scrolling ticker. The scroller applies Foundry settings to modify its appearance and behavior and is animated with CSS to create a seamless scrolling effect. Great for having news given back to your players about things happening in your world!
 
@@ -84,6 +84,8 @@ The module reads the text from a specified journal entry in the game settings. I
     -  Adjust the RSS Speed setting to a higher number. This controls "how long" the text will take to scroll thru the feed. Higher number = Slower speed.
 - Window size not right?
     -  Modify the Width and Height settings or toggle the "resizeable" setting on for more control.
+-  Text not scrolling at all?
+    - Please check with the inspector tool in your browser of choice if your system of choice is overriding the animation my module attempts with the RSS window. Issue link [here](https://github.com/KaiibottAI/foundry-rss-scroller/issues/5)
 
 ## Macros available
 
