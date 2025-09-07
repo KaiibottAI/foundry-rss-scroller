@@ -74,6 +74,7 @@ The module reads the text from a specified journal entry in the game settings. I
     - ~~Additional customization options (e.g., text color, background color).~~
     - ~~Themes~~
 - Successfully fixed Journal Page ordering in 1.3.0!
+- Opens for ALL Connected users as of 1.3.2! Same function `toggleRSSFeed()`, new improved functionality!
 
 #### Troubleshooting
 
